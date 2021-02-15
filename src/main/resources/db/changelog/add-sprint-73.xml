@@ -1,0 +1,46 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="d.uygay" id="insert_FF_SMRT-7574-special">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                select count(*) from FF4J_FEATURES where FEAT_UID =
+                'SMRT-7574-special.fop.in.ticket.history.enabled'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="FF4J_FEATURES">
+            <column name="FEAT_UID" value="SMRT-7574-special.fop.in.ticket.history.enabled"/>
+            <column name="ENABLE" value="0"/>
+            <column name="DESCRIPTION"
+                    value="SMRT-7574 Указывать при обмене три последние формы оплаты в original fop(доработка)"/>
+            <column name="GROUPNAME" value="Sprint 73"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="d.uygay" id="update_FF_SMRT-7574-special">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sqlCheck expectedResult="0">
+                    select count(*) from FF4J_FEATURES where FEAT_UID =
+                    'SMRT-7574-special.fop.in.ticket.history.enabled'
+                </sqlCheck>
+            </not>
+        </preConditions>
+        <update tableName="FF4J_FEATURES">
+            <column name="ENABLE" value="0"/>
+            <column name="DESCRIPTION"
+                    value="SMRT-7574 Указывать при обмене три последние формы оплаты в original fop(доработка)"/>
+            <column name="STRATEGY" value="ASD"/>
+            <column name="EXPRESSION" value="QWE"/>
+            <column name="GROUPNAME" value="Sprint 73"/>
+            <where>FEAT_UID='SMRT-7574-special.fop.in.ticket.history.enabled'</where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>
